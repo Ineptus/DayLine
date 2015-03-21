@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">DayLine</string>
+    <string name="add_widget">Add widget</string>
+    <string name="choose_calendars">Choose calendars to display:</string>
+    <string name="set_range">Set timeline range in hours:</string>
+    <string name="choose_calendars_button">Choose calendars to display</string>
+    <string name="button_switch_text">Open calendar on tap</string>
+    <string name="switch_free_labels_text">Label free time</string>
+    <string name="use_12_hours">12-hour mode</string>
+    <string name="mirror">Axis aligned to the left</string>
+    <string name="show_allday">Show all day events</string>
+    <string name="replace_message">REPLACING\nWIDGET\nREQUIRED :(</string>
+    <string name="of_free_time">of free time!</string>
+</resources>
