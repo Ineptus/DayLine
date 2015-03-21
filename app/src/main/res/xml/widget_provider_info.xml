@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
     android:minWidth="40dp" android:minHeight="110dp" android:updatePeriodMillis="300000"
-    android:previewImage="@drawable/example_appwidget_preview"
-    android:initialLayout="@layout/widget_provider"
+    android:previewImage="@drawable/preview_full"
+    android:initialLayout="@layout/widget"
     android:configure="com.ineptus.dayline.ConfigurationActivity"
     android:resizeMode="horizontal|vertical" android:widgetCategory="home_screen"
-    android:initialKeyguardLayout="@layout/widget_provider"></appwidget-provider>
+    android:initialKeyguardLayout="@layout/widget"></appwidget-provider>

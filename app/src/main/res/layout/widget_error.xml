@@ -1,0 +1,18 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/widget_margin"
+    android:background="#66111111">
+
+    <TextView
+        android:id="@+id/replace_message"
+        android:textColor="#ffffcccc"
+        android:shadowColor="#ffff0000"
+        android:shadowRadius="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/replace_message"/>
+
+</RelativeLayout>
