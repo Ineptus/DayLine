@@ -132,7 +132,10 @@ public class CalendarDrainer {
 
         Cursor cursor = getCalendars(context);
 
-        return new boolean[cursor.getCount()];
+        boolean[] checksArray = new boolean[cursor.getCount()];
+        cursor.close();
+
+        return checksArray;
 
     }
 
