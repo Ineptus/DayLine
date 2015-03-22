@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ineptus.dayline" >
+    package="com.ineptus.dayline">
 
     <uses-permission android:name="android.permission.READ_CALENDAR" />
 
@@ -8,8 +8,8 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
-        <receiver android:name=".WidgetProvider" >
+        android:theme="@style/AppTheme">
+        <receiver android:name=".WidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -19,11 +19,22 @@
                 android:resource="@xml/widget_provider_info" />
         </receiver>
 
-        <activity android:name=".ConfigurationActivity" >
+        <activity android:name=".ConfigurationActivity">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
         </activity>
+
+        <receiver
+            android:name="com.ineptus.dayline.WidgetProvider"
+            android:priority="1000">
+            <intent-filter>
+                <action android:name="android.intent.action.PROVIDER_CHANGED" />
+                <data android:scheme="content" />
+                <data android:host="com.android.calendar" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>
