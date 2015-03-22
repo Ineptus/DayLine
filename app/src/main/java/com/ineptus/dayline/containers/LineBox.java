@@ -29,13 +29,8 @@ public class LineBox {
 	}
 	
 	public boolean collidesWith(LineBox other) {
-		
-		
-		if( start >= other.end || end <= other.start ) {	
-			return false;
-		} else {
-			return true;
-		}
+
+        return !(start >= other.end || end <= other.start);
 	}
 	
 	public void addEvents(EventsList events) {

@@ -14,7 +14,7 @@ public static void simpleHours(Contour c) {
 		int mode = 24;
 		if(c.use12hours) {
 			mode = 12;
-		};
+		}
 		
 		int pxOfFirstHour = (int) Math.floor(c.now.minute*c.pxPerMinute);
 		

@@ -31,7 +31,7 @@ public class ErrorDrawer {
 		
 	    views.setImageViewBitmap(R.id.dayline_image, contour.bitmap);
 	    
-	};
+	}
 	
 	
 	

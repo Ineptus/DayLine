@@ -179,9 +179,7 @@ public class Prefs {
 
         Set<String> alter = new HashSet<String>();
 
-        Set<String> set = load(context, widgetId, Prefs.SELECTED_CALENDARS, alter);
-
-        return set;
+        return load(context, widgetId, Prefs.SELECTED_CALENDARS, alter);
     }
 
     public static void saveCheckedBoxes(Context context, int widgetId, HashSet<String> list) {
@@ -196,9 +194,7 @@ public class Prefs {
 
         Set<String> alter = new HashSet<String>();
 
-        HashSet<String> set = (HashSet<String>) load(context, widgetId, Prefs.CHECKED_BOXES, alter);
-
-        return set;
+        return (HashSet<String>) load(context, widgetId, Prefs.CHECKED_BOXES, alter);
     }
 
 

@@ -20,59 +20,59 @@ import com.ineptus.dayline.tools.Prefs;
 public class Contour {
 
     //GENERAL
-    public int widgetId;
-    public Context context;
+    public final int widgetId;
+    public final Context context;
     public int version;
 
     public Bitmap bitmap;
-    public Canvas canvas;
+    public final Canvas canvas;
 
 
     //DIMENSIONS
-    public int width;
-    public int height;
+    public final int width;
+    public final int height;
 
     //USER SETTINGS
     public String[] chosenCalendars;
-    public int range;
-    public boolean use12hours;
-    public boolean mirror;
+    public final int range;
+    public final boolean use12hours;
+    public final boolean mirror;
 
 
     //AXIS
-    public int axisWidth;
-    public int axisHeight;
+    public final int axisWidth;
+    public final int axisHeight;
 
-    public int axisX;
-    public int marginTop = 15;
-    public int marginBottom = 15;
+    public final int axisX;
+    public final int marginTop = 15;
+    public final int marginBottom = 15;
     public int marginRight;
 
-    public int eventWidth;
+    public final int eventWidth;
 
     //LABELS
-    public int labelHeight;
+    public final int labelHeight;
 
     //CALENDAR & TIME
-    public long start;
-    public long end;
+    public final long start;
+    public final long end;
 
-    public double pxPerMili;
-    public double pxPerSecond;
-    public double pxPerMinute;
-    public double pxPerHour;
+    public final double pxPerMili;
+    public final double pxPerSecond;
+    public final double pxPerMinute;
+    public final double pxPerHour;
     public int textSize = 30;
     public int textVertSpace = 5;
     public int labelsMargin = 50;
 
 
-    public Time now = new Time();
+    public final Time now = new Time();
 
     //CONTAINERS
-    public EventsList events;
-    public BoxedLine line;
+    public final EventsList events;
+    public final BoxedLine line;
     public BoxedLine sleep;
-    public SimpleLabelsManager labels;
+    public final SimpleLabelsManager labels;
 
     //BUILDING TEMPS
     public EventsList antiStriped = new EventsList();
@@ -186,13 +186,11 @@ public class Contour {
     //TOOLS:
 
     public int dpToPx(int dp) {
-        int px = Math.round(dp * context.getResources().getDisplayMetrics().density);
-        return px;
+        return Math.round(dp * context.getResources().getDisplayMetrics().density);
     }
 
     public int spToPx(int dp) {
-        int px = Math.round(dp * context.getResources().getDisplayMetrics().scaledDensity);
-        return px;
+        return Math.round(dp * context.getResources().getDisplayMetrics().scaledDensity);
     }
 
 

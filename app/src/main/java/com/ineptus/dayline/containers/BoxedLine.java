@@ -18,7 +18,7 @@ import com.ineptus.dayline.tools.Logger;
 
 public class BoxedLine {
 	
-	private Contour c;
+	private final Contour c;
 	
 	private ArrayList<LineBox> mList;
 	private int position = 0;
@@ -85,8 +85,7 @@ public class BoxedLine {
 		EventsList list = new EventsList();
 		list.add(event);
 			
-		LineBox box = new LineBox(c, eStart, eEnd, list);
-		return box;
+		return new LineBox(c, eStart, eEnd, list);
 	}
 
 	private void putBox(LineBox box) {
@@ -170,8 +169,7 @@ public class BoxedLine {
 			add(other);
 			add(col);
 			putBox(box);
-			return;
-		}	
+		}
 	}
 	
 	private void fillWithFreeTime() {

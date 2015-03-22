@@ -97,11 +97,11 @@ public class SimpleLabelsManager extends LabelsManager {
 
 
 	private boolean labelLeftEvent(Label label) {
-		
+
 		if(label.event == null) {
 			return false;
 		}
-		
+
 		return label.y < c.getEventStartY(label.event)-10 || label.y > c.getEventEndY(label.event)+10;
 	}
 
@@ -113,12 +113,8 @@ public class SimpleLabelsManager extends LabelsManager {
 		return (float) (label.y+c.textSize/2 - (c.end-c.start)*c.pxPerMili);
 	}
 
-	private boolean collide(Label label, Label other) {		
-		if(other.y >= label.y+c.textSize+c.textVertSpace || other.y <= label.y-c.textSize-c.textVertSpace) {	
-			return false;
-		} else {
-			return true;
-		}
+	private boolean collide(Label label, Label other) {
+        return !(other.y >= label.y + c.textSize + c.textVertSpace || other.y <= label.y - c.textSize - c.textVertSpace);
 	}
 	
 	private void solveCollision(Label label, Label other) {

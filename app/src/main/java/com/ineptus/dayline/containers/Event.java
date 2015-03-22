@@ -91,22 +91,13 @@ public class Event {
 
     public boolean collidesWith(Event other) {
 
-
-        if( (start > other.end && end > other.end) || (start < other.start && end < other.start) ) {
-            return false;
-        } else {
-            return true;
-        }
+        return !((start > other.end && end > other.end) || (start < other.start && end < other.start));
     }
 
 
     public boolean contains(Event other) {
 
-        if( start<= other.start && end >= other.end) {
-            return true;
-        } else {
-            return false;
-        }
+        return start <= other.start && end >= other.end;
     }
 
 
@@ -116,8 +107,7 @@ public class Event {
 
 
     public String toString() {
-        String out = "Event: title="+title +" start="+start + " end="+end;
-        return out;
+        return "Event: title="+title +" start="+start + " end="+end;
     }
 
     public float getStartY(Contour c) {
@@ -133,15 +123,11 @@ public class Event {
     }
 
     public boolean coversLine(Contour c) {
-        if(start < c.start && end > c.end) {
-            return true;
-        } else {
-            return false;
-        }
+        return start < c.start && end > c.end;
     }
 
     public boolean isSpecial() {
-        if(title.isEmpty()) {
+        if(!title.isEmpty()) {
             return false;
         } else {
             return title.substring(0, 1).equals("_");
