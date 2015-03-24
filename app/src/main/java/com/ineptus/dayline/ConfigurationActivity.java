@@ -35,6 +35,7 @@ import com.ineptus.dayline.tools.Prefs;
 public class ConfigurationActivity extends ActionBarActivity {
 
     private final static String CALENDARS_CHOSEN_KEY = "calendars_chosen";
+    private final static String PREFS_CLEARED_KEY = "prefs_cleared";
 
     private final static int MIN_RANGE = 4;
     private final static int MAX_RANGE = 48;
@@ -51,7 +52,7 @@ public class ConfigurationActivity extends ActionBarActivity {
     private Switch showAllDay;
 
     private boolean calendarsChosen = false;
-    private boolean result_canceled = true;
+    private boolean prefsCleared = false;
 
     public ConfigurationActivity() {
         super();
@@ -61,12 +62,14 @@ public class ConfigurationActivity extends ActionBarActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putBoolean(CALENDARS_CHOSEN_KEY, calendarsChosen);
+        outState.putBoolean(PREFS_CLEARED_KEY, prefsCleared);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         calendarsChosen = savedInstanceState.getBoolean(CALENDARS_CHOSEN_KEY, false);
+        prefsCleared = savedInstanceState.getBoolean(PREFS_CLEARED_KEY, false);
     }
 
     @Override
@@ -123,19 +126,17 @@ public class ConfigurationActivity extends ActionBarActivity {
     protected void onResume() {
         super.onResume();
 
+        if(!prefsCleared) {
+            prefsCleared = true;
+            Prefs.clearAll(getApplicationContext(), mAppWidgetId);
+        }
+
         if(!calendarsChosen) {
             calendarsChosen = true;
             showCalendarsChoice(findViewById(R.id.choose_calendars_button));
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if(result_canceled) {
-            Prefs.clearAll(getApplicationContext(), mAppWidgetId);
-        }
-    }
 
     public void showCalendarsChoice(View view) {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -179,7 +180,6 @@ public class ConfigurationActivity extends ActionBarActivity {
             // Make sure we pass back the original appWidgetId
             Intent resultValue = new Intent();
             resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
-            result_canceled=false;
             setResult(RESULT_OK, resultValue);
             finish();
     }

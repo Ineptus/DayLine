@@ -23,7 +23,7 @@
                 android:onClick="showCalendarsChoice">
 
                 <TextView
-                    android:id="@+id/choose_calendars_button"
+                    android:id="@+id/choose_calendars_text"
                     style="@style/ConfigurationItem.Text"
                     android:text="@string/choose_calendars_button" />
             </RelativeLayout>
