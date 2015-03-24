@@ -1,9 +1,5 @@
 package com.ineptus.dayline;
 
-/**
- * Created by Kuba Radzimowski on 18/03/2015.
- */
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -24,7 +20,7 @@ public class Contour {
     public final Context context;
     public int version;
 
-    public Bitmap bitmap;
+    public final Bitmap bitmap;
     public final Canvas canvas;
 
 

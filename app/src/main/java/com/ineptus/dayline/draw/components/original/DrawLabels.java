@@ -46,7 +46,7 @@ public class DrawLabels {
 					
 					if(c.line.hasSurrounded(c.line.current()) && Prefs.load(c, Prefs.LABEL_FREE_TIME, true)) {
 						
-						String label = "";
+						String label;
 						
 						String h = String.valueOf(c.line.current().getDuration()/(1000*60*60)) + " h ";
 						if (h.equals("0 h ")) h = "";

@@ -22,7 +22,7 @@ public class Label {
 	/**
 	 * @param event - original event
 	 * @param y - desired Y position
-	 * @param priority
+	 * @param priority - priority
 	 */
 	public Label(Event event, float y, int priority) {
 		

@@ -2,8 +2,6 @@ package com.ineptus.dayline.containers;
 
 import java.util.ArrayList;
 
-import android.util.Log;
-
 import com.ineptus.dayline.Contour;
 
 public class SimpleLabelsManager extends LabelsManager {
@@ -24,7 +22,7 @@ public class SimpleLabelsManager extends LabelsManager {
 	
 	public SimpleLabelsManager(Contour contour) {
 		
-		list = new ArrayList<Label>();
+		list = new ArrayList<>();
 		c = contour;
 	}
 	
@@ -101,7 +99,6 @@ public class SimpleLabelsManager extends LabelsManager {
 		if(label.event == null) {
 			return false;
 		}
-
 		return label.y < c.getEventStartY(label.event)-10 || label.y > c.getEventEndY(label.event)+10;
 	}
 

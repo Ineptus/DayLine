@@ -59,7 +59,7 @@ public class CalendarDrainer {
     private static ArrayList<Event> getInstances(Contour c) {
 
 
-        ArrayList<Event> list = new ArrayList<Event>();
+        ArrayList<Event> list = new ArrayList<>();
 
         Cursor cursor;
         ContentResolver cr = c.context.getContentResolver();

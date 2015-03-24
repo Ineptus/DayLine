@@ -13,7 +13,6 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.view.Surface;
 
-import com.ineptus.dayline.tools.Logger;
 import com.ineptus.dayline.tools.Prefs;
 import com.ineptus.dayline.draw.OriginalDrawer;
 
@@ -27,8 +26,8 @@ public class WidgetProvider extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] widgetIds) {
         // There may be multiple widgets active, so update all of them
         final int N = widgetIds.length;
-        for (int i = 0; i < N; i++) {
-            updateWidget(context, appWidgetManager, widgetIds[i]);
+        for (int widgetId : widgetIds) {
+            updateWidget(context, appWidgetManager, widgetId);
         }
     }
 
@@ -49,8 +48,8 @@ public class WidgetProvider extends AppWidgetProvider {
     public void onDeleted(Context context, int[] widgetIds) {
         // When the user deletes the widget, delete the preference associated with it.
         final int N = widgetIds.length;
-        for (int i = 0; i < N; i++) {
-            Prefs.clearAll(context, widgetIds[i]);
+        for (int widgetId : widgetIds) {
+            Prefs.clearAll(context, widgetId);
         }
     }
 

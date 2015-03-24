@@ -1,9 +1,5 @@
 package com.ineptus.dayline.tools;
 
-/**
- * Created by Kuba Radzimowski on 18/03/2015.
- */
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -177,14 +173,14 @@ public class Prefs {
 
     public static Set<String> loadChosenCalendars(Context context, int widgetId) {
 
-        Set<String> alter = new HashSet<String>();
+        Set<String> alter = new HashSet<>();
 
         return load(context, widgetId, Prefs.SELECTED_CALENDARS, alter);
     }
 
     public static void saveCheckedBoxes(Context context, int widgetId, HashSet<String> list) {
 
-        Set<String> set = new HashSet<String>();
+        Set<String> set = new HashSet<>();
         set.addAll(list);
 
         save(context, widgetId, Prefs.CHECKED_BOXES, set);
@@ -192,7 +188,7 @@ public class Prefs {
 
     public static HashSet<String> loadCheckedBoxes(Context context, int widgetId) {
 
-        Set<String> alter = new HashSet<String>();
+        Set<String> alter = new HashSet<>();
 
         return (HashSet<String>) load(context, widgetId, Prefs.CHECKED_BOXES, alter);
     }

@@ -16,8 +16,8 @@ import com.ineptus.dayline.tools.Prefs;
 public class ChooseCalendarsFragment extends DialogFragment {
     
 	Context context;
-	HashSet<String> checkedBoxes = new HashSet<String>();
-	HashSet<String> chosenCalendars = new HashSet<String>();
+	HashSet<String> checkedBoxes = new HashSet<>();
+	HashSet<String> chosenCalendars = new HashSet<>();
 	private int widgetId;
 	
 	public void setContext(Context context) {

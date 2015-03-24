@@ -41,7 +41,6 @@ public class ConfigurationActivity extends ActionBarActivity {
     private final static int MAX_RANGE = 48;
 
     int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
-    private ArrayAdapter<Integer> spinAdapter;
     public static ArrayList<String> checkedCalendars;
     private Spinner rangeSpinner;
     //private NumberPicker rangePicker;
@@ -91,11 +90,11 @@ public class ConfigurationActivity extends ActionBarActivity {
         mirror = (Switch) findViewById(R.id.switch_mirror);
         showAllDay = (Switch) findViewById(R.id.switch_show_allday);
 
-        List<Integer> rangeList = new ArrayList<Integer>();
+        List<Integer> rangeList = new ArrayList<>();
         for (int i = MIN_RANGE; i <= MAX_RANGE; i++) {
             rangeList.add(i);
         }
-        spinAdapter = new ArrayAdapter<Integer>(context,
+        ArrayAdapter<Integer> spinAdapter = new ArrayAdapter<>(context,
                 R.layout.range_spinner, rangeList);
         spinAdapter
                 .setDropDownViewResource(R.layout.range_spinner_item);

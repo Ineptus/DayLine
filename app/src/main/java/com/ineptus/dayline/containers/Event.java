@@ -10,11 +10,11 @@ import com.ineptus.dayline.tools.CalendarDrainer;
 
 public class Event {
 
-    public String title;
+    public final String title;
     public long start;
     public long end;
     public int color;
-    public int calendarId;
+    public final int calendarId;
     public boolean isFree;
     public boolean isMaybe;
     public boolean allDay;

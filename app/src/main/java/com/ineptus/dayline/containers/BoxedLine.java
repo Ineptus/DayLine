@@ -28,7 +28,7 @@ public class BoxedLine {
 	public BoxedLine(Contour contour) {
 		
 		c = contour;
-		mList = new ArrayList<LineBox>();
+		mList = new ArrayList<>();
 		
 	}
 	
@@ -37,7 +37,7 @@ public class BoxedLine {
 		
 		c = contour;
 		
-		mList = new ArrayList<LineBox>();
+		mList = new ArrayList<>();
 		
 		createFromEventsList(events);
 	}
@@ -188,7 +188,7 @@ public class BoxedLine {
 	
 	private void sort() {
 		
-		ArrayList<LineBox> sorted = new ArrayList<LineBox>();
+		ArrayList<LineBox> sorted = new ArrayList<>();
 		
 		long curEnd = c.start;
 		

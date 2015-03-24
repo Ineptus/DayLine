@@ -11,7 +11,7 @@ public class EventsList {
 	
 	public EventsList() {
 		
-		mList = new ArrayList<Event>();
+		mList = new ArrayList<>();
 	}
 	
 	//ADDING
