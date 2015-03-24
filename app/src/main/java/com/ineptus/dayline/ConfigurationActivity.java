@@ -109,9 +109,6 @@ public class ConfigurationActivity extends ActionBarActivity {
                     AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
         }
 
-        // Clear prefs. It shouldn't be necessary since 'onRemove', but just in case..
-        Prefs.clearAll(context, mAppWidgetId);
-
         // If this activity was started with an intent without an app widget ID, finish with an error.
         if (mAppWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
             finish();
