@@ -46,10 +46,10 @@ public class SimpleLabelsManager extends LabelsManager {
 	}
 	
 	private void putLabel(Label label) {
-		Log.d("putLabel", label.text+" Putting new label...");
+		//Log.d("putLabel", label.text+" Putting new label...");
 		//IF SOMETHING WENT WRONG
 		if(label.steps > 200) {list.add(label); return;}
-		Log.d("putLabel", label.text+" steps: "+label.steps);
+		//Log.d("putLabel", label.text+" steps: "+label.steps);
 
  		//IF THIS LABEL IS ALREADY FUCKED
 		if(label.reachedBottom && label.reachedTop) {

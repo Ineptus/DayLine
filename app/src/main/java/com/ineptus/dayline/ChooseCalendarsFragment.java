@@ -33,8 +33,6 @@ public class ChooseCalendarsFragment extends DialogFragment {
 
         if(context == null) {
             context = getActivity().getApplicationContext();
-            //dismiss();
-            //return new AlertDialog.Builder(getActivity()).create();
         }
 
 
