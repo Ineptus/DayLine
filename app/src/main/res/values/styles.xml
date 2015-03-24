@@ -10,4 +10,32 @@
         <item name="android:background">?android:attr/listDivider</item>
     </style>
 
+
+    <style name="ConfigurationItem" parent="AppTheme">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingBottom">22dp</item>
+        <item name="android:paddingTop">22dp</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:onClick">clickReceiver</item>
+    </style>
+
+    <style name="ConfigurationItem.Text" parent="AppTheme">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:text">@string/button_switch_text</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="ConfigurationItem.Switch" parent="AppTheme">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentRight">true</item>
+    </style>
+
 </resources>

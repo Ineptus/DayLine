@@ -6,12 +6,19 @@ import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.res.Configuration;
+import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.view.TouchDelegate;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
 
@@ -27,6 +34,8 @@ import com.ineptus.dayline.tools.Prefs;
  */
 public class ConfigurationActivity extends ActionBarActivity {
 
+    private final static String CALENDARS_CHOSEN_KEY = "calendars_chosen";
+
     private final static int MIN_RANGE = 4;
     private final static int MAX_RANGE = 48;
 
@@ -41,8 +50,23 @@ public class ConfigurationActivity extends ActionBarActivity {
     private Switch mirror;
     private Switch showAllDay;
 
+    private boolean calendarsChosen = false;
+    private boolean result_canceled = true;
+
     public ConfigurationActivity() {
         super();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(CALENDARS_CHOSEN_KEY, calendarsChosen);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        calendarsChosen = savedInstanceState.getBoolean(CALENDARS_CHOSEN_KEY, false);
     }
 
     @Override
@@ -76,20 +100,6 @@ public class ConfigurationActivity extends ActionBarActivity {
         rangeSpinner.setAdapter(spinAdapter);
         rangeSpinner.setSelection(12);
 
-/*        String[] nums = new String[20];
-        for(int i=0; i<nums.length; i++)
-            nums[i] = Integer.toString(i);
-
-        rangePicker.setMinValue(1);
-        rangePicker.setMaxValue(20);
-        rangePicker.setWrapSelectorWheel(true);
-        rangePicker.setDisplayedValues(nums);
-        rangePicker.setValue(8);*/
-
-
-        findViewById(R.id.choose_calendars_button).setOnClickListener(chooseCalendarsListener);
-
-        findViewById(R.id.add_button).setOnClickListener(mOnClickListener);
 
         // Find the widget id from the intent.
         Intent intent = getIntent();
@@ -99,6 +109,9 @@ public class ConfigurationActivity extends ActionBarActivity {
                     AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
         }
 
+        // Clear prefs. It shouldn't be necessary since 'onRemove', but just in case..
+        Prefs.clearAll(context, mAppWidgetId);
+
         // If this activity was started with an intent without an app widget ID, finish with an error.
         if (mAppWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
             finish();
@@ -106,40 +119,44 @@ public class ConfigurationActivity extends ActionBarActivity {
         }
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("DayLine Configuration");
-
-        findViewById(R.id.choose_calendars_button).performClick();
+        actionBar.setTitle(R.string.configuration_actionbar_title);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
-    final View.OnClickListener chooseCalendarsListener = new View.OnClickListener() {
-
-        @Override
-        public void onClick(View v) {
-
-            // DialogFragment.show() will take care of adding the fragment
-            // in a transaction.  We also want to remove any currently showing
-            // dialog, so make our own transaction and take care of that here.
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
-            Fragment prev = getFragmentManager().findFragmentByTag("dialog");
-            if (prev != null) {
-                ft.remove(prev);
-            }
-            ft.addToBackStack(null);
-
-            // Create and show the dialog.
-            ChooseCalendarsFragment dialogF = new ChooseCalendarsFragment();
-
-            dialogF.setContext(getApplicationContext());
-            dialogF.setWidgetId(mAppWidgetId);
-            dialogF.show(ft, "dialog");
-
+        if(!calendarsChosen) {
+            calendarsChosen = true;
+            showCalendarsChoice(findViewById(R.id.choose_calendars_button));
         }
-    };
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(result_canceled) {
+            Prefs.clearAll(getApplicationContext(), mAppWidgetId);
+        }
+    }
 
-    final View.OnClickListener mOnClickListener = new View.OnClickListener() {
-        public void onClick(View v) {
+    public void showCalendarsChoice(View view) {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+
+        // Create and show the dialog.
+        ChooseCalendarsFragment dialogF = new ChooseCalendarsFragment();
+
+        dialogF.setContext(getApplicationContext());
+        dialogF.setWidgetId(mAppWidgetId);
+        dialogF.show(ft, "dialog");
+    }
+
+    public void addWidget(View view) {
             final Context context = ConfigurationActivity.this;
 
             int version;
@@ -165,12 +182,19 @@ public class ConfigurationActivity extends ActionBarActivity {
             // Make sure we pass back the original appWidgetId
             Intent resultValue = new Intent();
             resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
+            result_canceled=false;
             setResult(RESULT_OK, resultValue);
             finish();
-        }
-    };
+    }
 
 
+
+
+    public void clickReceiver(View view) {
+        RelativeLayout l = (RelativeLayout) view;
+        View child = l.getChildAt(l.getChildCount()-1);
+        child.performClick();
+    }
 
 
 }

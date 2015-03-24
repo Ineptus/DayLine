@@ -10,6 +10,6 @@
     android:ellipsize="marquee"
     android:textAlignment="center"
     android:gravity="center"
-    android:textColor="@color/primary_dark_material_light" />
+    android:textColor="@color/secondary_text_default_material_light"/>
 
 

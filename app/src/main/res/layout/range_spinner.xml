@@ -8,5 +8,6 @@
     android:layout_height="wrap_content"
     android:ellipsize="marquee"
     android:textAlignment="center"
+    android:textSize="@dimen/abc_text_size_medium_material"
     android:gravity="center"
-    android:textColor="@color/primary_dark_material_light" />
+    android:textColor="@color/primary_text_default_material_light" />

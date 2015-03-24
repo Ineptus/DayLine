@@ -27,11 +27,17 @@ public class ChooseCalendarsFragment extends DialogFragment {
 	public void setWidgetId(int widgetId) {
 		this.widgetId = widgetId;
 	}
-	
-	
-	@Override
+
+    @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-		
+
+        if(context == null) {
+            context = getActivity().getApplicationContext();
+            //dismiss();
+            //return new AlertDialog.Builder(getActivity()).create();
+        }
+
+
 		// Use the Builder class for convenient dialog construction
 		CharSequence[] items = CalendarDrainer.getCalendarsNames(context);
 		boolean[] checks = CalendarDrainer.getChecksArray(context);
