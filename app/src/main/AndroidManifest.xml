@@ -4,20 +4,33 @@
 
     <uses-permission android:name="android.permission.READ_CALENDAR" />
 
+    <supports-screens
+        android:largeScreens="true"
+        android:xlargeScreens="true" />
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
+
+        <activity android:name=".ConfigurationActivity">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+
         <receiver
             android:name="com.ineptus.dayline.WidgetProvider"
-            android:label="DayLine" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
 
             <intent-filter>
                 <action android:name="android.intent.action.PROVIDER_CHANGED" />
+
                 <data android:scheme="content" />
                 <data android:host="com.android.calendar" />
             </intent-filter>
@@ -26,12 +39,6 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_provider_info" />
         </receiver>
-
-        <activity android:name=".ConfigurationActivity">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
-            </intent-filter>
-        </activity>
 
 
     </application>
