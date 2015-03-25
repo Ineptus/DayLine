@@ -27,4 +27,6 @@ Colors, as for now, are taken from CalendarProvider directly, so they match even
 ##How can you help?
 I would be very grateful for any bug reports, advices and ideas!
 
+You may want to become a beta-tester! [Join Google+ community.](https://plus.google.com/communities/102864537365759669940)
+
 ##License
