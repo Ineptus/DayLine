@@ -20,8 +20,8 @@ public class Contour {
     public final Context context;
     public int version;
 
-    public final Bitmap bitmap;
-    public final Canvas canvas;
+    public Bitmap bitmap;
+    public Canvas canvas;
 
 
     //DIMENSIONS
