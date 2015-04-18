@@ -127,7 +127,7 @@ public class Event {
     }
 
     public boolean isSpecial() {
-        if(!title.isEmpty()) {
+        if(title.isEmpty()) {
             return false;
         } else {
             return title.substring(0, 1).equals("_");

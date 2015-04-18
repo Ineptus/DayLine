@@ -1,7 +1,10 @@
 package com.ineptus.dayline.containers;
 
-import java.util.ArrayList;
+import com.ineptus.dayline.Contour;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 
 public abstract class LabelsManager {
@@ -17,12 +20,13 @@ public abstract class LabelsManager {
 	private ArrayList<Label> list;
 	
 	private int position = 0;
+    private Contour c;
 	
 	//CREATING	
 	
 	abstract void addFromEvent(Event event, int priority);
 	
-	abstract void addCustom(String text, int color, float y, int priority);
+	abstract void addCustom(String text, int color, int y, int priority);
 	
 	
 	//ITERATOR
@@ -52,5 +56,25 @@ public abstract class LabelsManager {
 	public int size() {
 		return list.size();
 	}
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    public ArrayList<Label> getList() {
+        return list;
+    }
+
+    public void setList(ArrayList<Label> list) {
+        this.list = list;
+    }
+
+    public void sort() {
+       Collections.sort(list);
+    }
 
 }

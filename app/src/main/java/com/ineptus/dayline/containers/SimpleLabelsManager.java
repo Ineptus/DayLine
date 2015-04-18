@@ -37,7 +37,7 @@ public class SimpleLabelsManager extends LabelsManager {
 		putLabel(label);		
 	}
 	
-	public void addCustom(String text, int color, float y, int priority) {
+	public void addCustom(String text, int color, int y, int priority) {
 		Label label = new Label(text, color, y, priority);
 		
 		putLabel(label);		

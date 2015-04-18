@@ -39,6 +39,9 @@ public class Contour {
     public final int axisWidth;
     public final int axisHeight;
 
+    public final int axisTop;
+    public final int axisBottom;
+
     public final int axisX;
     public final int marginTop = 15;
     public final int marginBottom = 15;
@@ -48,6 +51,7 @@ public class Contour {
 
     //LABELS
     public final int labelHeight;
+    public final int labelHalfHeight;
 
     //CALENDAR & TIME
     public final long start;
@@ -103,11 +107,14 @@ public class Contour {
         axisWidth = dpToPx(7);
 
         axisHeight = height - marginTop - marginBottom;
+        axisTop = marginTop;
+        axisBottom = height - marginBottom;
 
         textSize = dpToPx(16);
         textVertSpace = dpToPx(3);
         labelsMargin = dpToPx(26);
         labelHeight = textSize + textVertSpace;
+        labelHalfHeight = labelHeight/2;
 
         //TIMES
         now.setToNow();
@@ -146,9 +153,9 @@ public class Contour {
     public float getEventEndY(Event event) {
         return (float) ((event.end-now.toMillis(true))*pxPerMili); }
 
-    public float getBoxCenterY(LineBox box) {
-        float start =  (float) (box.getRelStart()*pxPerMili);
-        float duration = (float) (box.getDuration()*pxPerMili);
+    public int getBoxCenterY(LineBox box) {
+        int start = (int) (box.getRelStart()*pxPerMili);
+        int duration = (int) (box.getDuration()*pxPerMili);
 
         return start+duration/2;
     }
