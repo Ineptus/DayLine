@@ -1,6 +1,8 @@
 package com.ineptus.dayline.containers;
 
 
+import java.util.ArrayList;
+
 public class Label implements Comparable<Label> {
 
 	public String text;
@@ -15,6 +17,8 @@ public class Label implements Comparable<Label> {
 	public boolean lastUp = false;
 	public boolean reachedTop = false;
 	public boolean reachedBottom = false;
+    public Label touchAbove = null;
+    public Label touchBelow = null;
 	
 	
 	
@@ -77,6 +81,27 @@ public class Label implements Comparable<Label> {
 		reachedBottom = true;
 	}
 
+    public int countTouchingAbove() {
+        if(touchAbove == null) {
+            return 0;
+        } else {
+            return 1+touchAbove.countTouchingAbove();
+        }
+    }
+
+    public void populateClusterAbove(ArrayList<Label> list) {
+        if(touchAbove != null) {
+            list.add(touchAbove);
+            touchAbove.populateClusterAbove(list);
+        }
+    }
+
+    public void moveUpClusterBelow(Label last) {
+        if(touchBelow != null) {
+            touchBelow.moveUpClusterBelow(this);
+        }
+        y = last.y;
+    }
 
     @Override
     public int compareTo(Label another) {

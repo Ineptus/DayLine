@@ -42,6 +42,9 @@ public class Contour {
     public final int axisTop;
     public final int axisBottom;
 
+    public final int labelsTop;
+    public final int labelsBottom;
+
     public final int axisX;
     public final int marginTop = 15;
     public final int marginBottom = 15;
@@ -115,6 +118,9 @@ public class Contour {
         labelsMargin = dpToPx(26);
         labelHeight = textSize + textVertSpace;
         labelHalfHeight = labelHeight/2;
+
+        labelsTop = axisTop+labelHalfHeight;
+        labelsBottom = axisBottom-labelHalfHeight;
 
         //TIMES
         now.setToNow();
