@@ -40,7 +40,17 @@ public class ExperimentalLabelsManager {
                 Label worst = getWorstInCluster(label);
                 if(worst == label) return;
                 removeLabelAndMoveUp(worst);
+                label.reachedBottom = true;
+            } else {
+                label.y = c.labelsBottom;
+                label.reachedBottom = true;
             }
+        }
+
+        int distanceToLast = getDistanceToLast(label);
+        if(distanceToLast < c.labelHeight) {
+            int distanceToLastAboveCluster = getDistanceToLast(label);
+
         }
 
 
@@ -84,6 +94,19 @@ public class ExperimentalLabelsManager {
         }
     }
 
+    private int getDistanceToLast(Label label) {
+        return label.y - list.get(list.size()).y;
+    }
+
+    private Label getLabelAbove(Label label) {
+        Label topInCluster = label.getTopInCluster();
+        int topKnownIndex = list.indexOf(topInCluster);
+        if(topKnownIndex > 0) {
+            return list.get(topKnownIndex-1);
+        } else {
+            return null;
+        }
+    }
 
 
 

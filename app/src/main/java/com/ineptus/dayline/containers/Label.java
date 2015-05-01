@@ -17,8 +17,13 @@ public class Label implements Comparable<Label> {
 	public boolean lastUp = false;
 	public boolean reachedTop = false;
 	public boolean reachedBottom = false;
+
+    //EXPERIMENTAL
     public Label touchAbove = null;
     public Label touchBelow = null;
+
+    public Label labelAbove = null;
+    public Label labelBelow = null;
 	
 	
 	
@@ -101,6 +106,30 @@ public class Label implements Comparable<Label> {
             touchBelow.moveUpClusterBelow(this);
         }
         y = last.y;
+    }
+
+    public Label getTopInCluster() {
+        if(touchAbove == null) {
+            return this;
+        } else {
+            return touchAbove.getTopInCluster();
+        }
+    }
+
+    public Label getWorstAbove(Label worst) {
+        if(touchAbove != null) {
+            if (this.priority < worst.priority) {
+                return touchAbove.getWorstAbove(this);
+            } else {
+                return touchAbove.getWorstAbove(worst);
+            }
+        } else {
+            if (this.priority < worst.priority) {
+                return this;
+            } else {
+                return worst;
+            }
+        }
     }
 
     @Override

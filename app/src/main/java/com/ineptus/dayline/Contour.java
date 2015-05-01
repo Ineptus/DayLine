@@ -147,7 +147,7 @@ public class Contour {
 
     public int getEventCenterY(Event event) {
 
-        int start = (int) ((event.start-now.toMillis(true))*pxPerMili);
+        int start = (int) ((event.start-this.start)*pxPerMili);
         int duration = (int) (event.getDuration()*pxPerMili);
 
         return start+duration/2;
