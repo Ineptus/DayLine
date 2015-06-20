@@ -79,9 +79,6 @@ public class DrawLabels {
 
             String text = cutText(c, paint, label.text);
 
-            //TESTING - DRAW BOX
-            c.canvas.drawRect(0, c.marginTop + label.y - c.labelHalfHeight, posX, c.marginTop+label.y+c.labelHalfHeight, paint);
-
             c.canvas.drawText(text, posX, c.marginTop + label.y + c.textSize * 0.33f, paint);
         }
     }
