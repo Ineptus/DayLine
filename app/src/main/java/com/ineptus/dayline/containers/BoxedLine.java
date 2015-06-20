@@ -20,7 +20,7 @@ public class BoxedLine {
 	
 	private final Contour c;
 	
-	private ArrayList<LineBox> mList;
+	public ArrayList<LineBox> list;
 	private int position = 0;
 	
 	
@@ -28,7 +28,7 @@ public class BoxedLine {
 	public BoxedLine(Contour contour) {
 		
 		c = contour;
-		mList = new ArrayList<>();
+		list = new ArrayList<>();
 		
 	}
 	
@@ -37,7 +37,7 @@ public class BoxedLine {
 		
 		c = contour;
 		
-		mList = new ArrayList<>();
+		list = new ArrayList<>();
 		
 		createFromEventsList(events);
 	}
@@ -94,10 +94,10 @@ public class BoxedLine {
 			return;
 		}
 		
-		for(int i = 0; i<mList.size(); i++) {		
-			if(box.collidesWith(mList.get(i))) {
-				LineBox other = mList.get(i);
-				mList.remove(i);  
+		for(int i = 0; i< list.size(); i++) {
+			if(box.collidesWith(list.get(i))) {
+				LineBox other = list.get(i);
+				list.remove(i);
 				solveBoxes(box, other);
 				return;
 			}
@@ -135,7 +135,7 @@ public class BoxedLine {
 			Logger.log("solveBoxes", 2, box.getName()+ " surrounds " + other.getName());
 			LineBox box2 = new LineBox(box);
 			other.addEvents(box.getEvents());
-			mList.add(other);
+			list.add(other);
 			box.setEnd(other.start);
 			box2.setStart(other.end);
 			if(box.getDuration() != 0) {
@@ -179,7 +179,7 @@ public class BoxedLine {
 	}
 	
 	private void add(LineBox box) {
-		mList.add(box);
+		list.add(box);
 		Logger.log("add box", 1, box.getName() + " added");
 	}
 	
@@ -192,21 +192,21 @@ public class BoxedLine {
 		
 		long curEnd = c.start;
 		
-		while (sorted.size() != mList.size()) {			
-			for(LineBox box : mList) {			
+		while (sorted.size() != list.size()) {
+			for(LineBox box : list) {
 				if(box.start == curEnd || box.start == curEnd+1) {
 					sorted.add(box);
 					curEnd = box.end;
 					break;	
 		}}}
-		mList = sorted;		
+		list = sorted;
 	}
 	
 	
 	//ITERATOR
 	
 	public boolean moveToFirst() {	
-		if(!mList.isEmpty()) {
+		if(!list.isEmpty()) {
 			position = 0;
 			return true;
 		} else {
@@ -215,7 +215,7 @@ public class BoxedLine {
 	}
 	
 	public boolean moveToNext() {
-		if(position+1 < mList.size()) {
+		if(position+1 < list.size()) {
 			position++;
 			return true;
 		} else {
@@ -224,11 +224,11 @@ public class BoxedLine {
 	}
 	
 	public LineBox current() {
-		return mList.get(position);
+		return list.get(position);
 	}
 	
 	public int size() {
-		return mList.size();
+		return list.size();
 	}
 	
 	

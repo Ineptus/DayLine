@@ -132,6 +132,15 @@ public class Label implements Comparable<Label> {
         }
     }
 
+	public void moveClusterAbove(int shift) {
+        if(touchAbove == null) {
+            return;
+        } else {
+            touchAbove.y = touchAbove.y - shift;
+            touchAbove.moveClusterAbove(shift);
+        }
+    }
+
     @Override
     public int compareTo(Label another) {
         return (int) (this.originY -another.originY);

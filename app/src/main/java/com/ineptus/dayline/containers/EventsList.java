@@ -6,41 +6,36 @@ import java.util.Comparator;
 
 public class EventsList {
 	
-	private ArrayList<Event> mList;
+	private ArrayList<Event> list;
 	private int position = 0;
 	
 	public EventsList() {
 		
-		mList = new ArrayList<>();
+		list = new ArrayList<>();
 	}
 	
 	//ADDING
 	
 	public void add(Event event) {
 		
-		mList.add(event);
-
-		sort();
+		list.add(event);
 	}
 	
-	public void addAll(EventsList aList) {
+	public void addAll(EventsList eventsList) {
 		
-		mList.addAll(aList.getList());
-		sort();
+		list.addAll(eventsList.getList());
 	}
 	
 	
 	public ArrayList<Event> getList() {
-		return mList;
+		return list;
 	}
-	
-	
-	
+
 	
 	//ITERATOR
 	
 	public boolean moveToFirst() {	
-		if(!mList.isEmpty()) {
+		if(!list.isEmpty()) {
 			position = 0;
 			return true;
 		} else {
@@ -49,7 +44,7 @@ public class EventsList {
 	}
 	
 	public boolean moveToNext() {
-		if(position+1 < mList.size()) {
+		if(position+1 < list.size()) {
 			position++;
 			return true;
 		} else {
@@ -58,27 +53,37 @@ public class EventsList {
 	}
 	
 	public Event current() {
-		return mList.get(position);
+		return list.get(position);
 	}
 	
 	public int size() {
-		return mList.size();
+		return list.size();
 	}
 	
 	public Event get(int n) {
-		return mList.get(n);
+		return list.get(n);
 	}
 
 	
 	
-	private void sort() {
+	public void sortByStart() {
 		
-	    Collections.sort(mList, new Comparator<Event>() {
+	    Collections.sort(list, new Comparator<Event>() {
 	    	
 	        public int compare(Event e1, Event e2) {
 	            return( (int) (e1.start - e2.start) );
 	        }
 	    });
+	}
+
+	public void sortByCenter() {
+
+		Collections.sort(list, new Comparator<Event>() {
+
+			public int compare(Event e1, Event e2) {
+				return( (int) ((e1.start + e1.getDuration()/2) - (e2.start + e2.getDuration()/2) ));
+			}
+		});
 	}
 			
 	

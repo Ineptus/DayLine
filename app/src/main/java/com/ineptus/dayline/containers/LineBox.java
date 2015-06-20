@@ -34,7 +34,9 @@ public class LineBox {
 	}
 	
 	public void addEvents(EventsList events) {
-		list.addAll(events);}
+		list.addAll(events);
+        list.sortByStart();
+    }
 	
 	public EventsList getEvents() {
 		return list;

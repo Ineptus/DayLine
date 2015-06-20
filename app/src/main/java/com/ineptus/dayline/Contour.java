@@ -9,6 +9,7 @@ import com.ineptus.dayline.containers.BoxedLine;
 import com.ineptus.dayline.containers.Event;
 import com.ineptus.dayline.containers.EventsList;
 import com.ineptus.dayline.containers.LineBox;
+import com.ineptus.dayline.containers.PeculiarLabelsManager;
 import com.ineptus.dayline.containers.SimpleLabelsManager;
 import com.ineptus.dayline.tools.CalendarDrainer;
 import com.ineptus.dayline.tools.Prefs;
@@ -33,6 +34,7 @@ public class Contour {
     public final int range;
     public final boolean use12hours;
     public final boolean mirror;
+    public final boolean labelFreeTime;
 
 
     //AXIS
@@ -75,7 +77,8 @@ public class Contour {
     public final EventsList events;
     public final BoxedLine line;
     public BoxedLine sleep;
-    public final SimpleLabelsManager labels;
+    //public final SimpleLabelsManager labels;
+    public final PeculiarLabelsManager labels;
 
     //BUILDING TEMPS
     public EventsList antiStriped = new EventsList();
@@ -99,6 +102,7 @@ public class Contour {
         use12hours = Prefs.load(this, Prefs.USE12HOURS, false);
         range = Prefs.load(this, Prefs.RANGE, 12);
         mirror = Prefs.load(this, Prefs.MIRROR, false);
+        labelFreeTime = Prefs.load(this, Prefs.LABEL_FREE_TIME, true);
 
         //INIT CONTEXT DEPENDENT VALUES:
         if(mirror){
@@ -135,7 +139,8 @@ public class Contour {
 
         //INIT CONTAINERS:
         events = new EventsList();
-        labels = new SimpleLabelsManager(this);
+        //labels = new SimpleLabelsManager(this);
+        labels = new PeculiarLabelsManager(this);
 
         //DRAIN CALENDAR WHEN EVERYTHING INITIATED
         CalendarDrainer.drain(this);

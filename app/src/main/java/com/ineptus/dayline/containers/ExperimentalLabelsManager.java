@@ -27,6 +27,13 @@ public class ExperimentalLabelsManager {
 
     private void putLabel(Label label) {
 
+        /*
+        Check if above top
+        Check if below bottom
+        Check
+         */
+
+        //
         if(aboveTop(label)) {
             if(list.size() != 0) {
                 label.touchAbove = list.get(list.size());
@@ -38,7 +45,7 @@ public class ExperimentalLabelsManager {
         if(belowBottom(label)) {
             if(label.reachedTop) {
                 Label worst = getWorstInCluster(label);
-                if(worst == label) return;
+                if (worst == label) return;
                 removeLabelAndMoveUp(worst);
                 label.reachedBottom = true;
             } else {
@@ -49,7 +56,19 @@ public class ExperimentalLabelsManager {
 
         int distanceToLast = getDistanceToLast(label);
         if(distanceToLast < c.labelHeight) {
-            int distanceToLastAboveCluster = getDistanceToLast(label);
+            int distToLastAboveCluster = getDistanceToLastAboveCluster(label);
+            int clusterSize = label.countTouchingAbove();
+            int primeShift = 0;
+
+            if(distToLastAboveCluster < c.labelHeight) {
+                primeShift = distToLastAboveCluster/(clusterSize+1);
+                label.y = label.y + primeShift;
+                label.moveClusterAbove(distanceToLast-primeShift);
+                connectWithPrevious(label.getTopInCluster());
+                clusterSize++;
+            }
+            int shift = (c.labelHeight - distanceToLast - primeShift)/(clusterSize+1);
+
 
         }
 
@@ -108,6 +127,19 @@ public class ExperimentalLabelsManager {
         }
     }
 
+    private int getDistanceToLastAboveCluster(Label label) {
+        Label top = label.getTopInCluster();
+        if(list.indexOf(top) == 0) {
+            return 100000;
+        } else {
+            return top.y - list.get(list.indexOf(top)-1).y;
+        }
+    }
 
+    private void connectWithPrevious(Label label) {
+        Label previus = list.get(list.indexOf(label)-1);
+        label.touchAbove = previus;
+        previus.touchBelow = label;
+    }
 
 }
