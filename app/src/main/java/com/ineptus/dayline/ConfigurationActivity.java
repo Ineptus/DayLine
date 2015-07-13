@@ -6,27 +6,19 @@ import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.content.res.Configuration;
-import android.graphics.Rect;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.view.TouchDelegate;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
 
+import com.ineptus.dayline.tools.Prefs;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.ineptus.dayline.tools.Logger;
-import com.ineptus.dayline.tools.Prefs;
 
 
 /**

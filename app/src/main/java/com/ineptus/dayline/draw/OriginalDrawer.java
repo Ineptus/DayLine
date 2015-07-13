@@ -9,7 +9,6 @@ import com.ineptus.dayline.draw.components.original.DrawBoxes;
 import com.ineptus.dayline.draw.components.original.DrawBoxesShadow;
 import com.ineptus.dayline.draw.components.original.DrawLabels;
 import com.ineptus.dayline.draw.components.original.DrawTimeLabels;
-import com.ineptus.dayline.tools.Logger;
 
 public class OriginalDrawer {
 

@@ -1,7 +1,5 @@
 package com.ineptus.dayline;
 
-import java.util.HashSet;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -12,6 +10,8 @@ import android.os.Bundle;
 
 import com.ineptus.dayline.tools.CalendarDrainer;
 import com.ineptus.dayline.tools.Prefs;
+
+import java.util.HashSet;
 
 public class ChooseCalendarsFragment extends DialogFragment {
     

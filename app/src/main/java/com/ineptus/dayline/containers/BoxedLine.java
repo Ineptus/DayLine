@@ -1,9 +1,9 @@
 package com.ineptus.dayline.containers;
 
-import java.util.ArrayList;
-
 import com.ineptus.dayline.Contour;
 import com.ineptus.dayline.tools.Logger;
+
+import java.util.ArrayList;
 
 /**
  * This stores LineBox items in <strike>chronological</strike> no order.

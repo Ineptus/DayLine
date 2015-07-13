@@ -4,7 +4,6 @@ import com.ineptus.dayline.Contour;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 
 
 public abstract class LabelsManager {

@@ -1,12 +1,12 @@
 package com.ineptus.dayline.tools;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.ineptus.dayline.Contour;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class Prefs {
 

@@ -1,20 +1,20 @@
 package com.ineptus.dayline;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
-import android.widget.RemoteViews;
-import android.view.WindowManager;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.view.Surface;
+import android.view.WindowManager;
+import android.widget.RemoteViews;
 
-import com.ineptus.dayline.tools.Prefs;
 import com.ineptus.dayline.draw.OriginalDrawer;
+import com.ineptus.dayline.tools.Prefs;
 
 /**
  * Implementation of App Widget functionality.

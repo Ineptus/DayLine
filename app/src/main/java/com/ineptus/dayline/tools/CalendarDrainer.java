@@ -1,8 +1,5 @@
 package com.ineptus.dayline.tools;
 
-import java.util.ArrayList;
-import java.util.Set;
-
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
@@ -13,6 +10,9 @@ import android.provider.CalendarContract.Instances;
 
 import com.ineptus.dayline.Contour;
 import com.ineptus.dayline.containers.Event;
+
+import java.util.ArrayList;
+import java.util.Set;
 
 public class CalendarDrainer {
 

@@ -1,8 +1,8 @@
 package com.ineptus.dayline.containers;
 
-import java.util.ArrayList;
-
 import com.ineptus.dayline.Contour;
+
+import java.util.ArrayList;
 
 public class SimpleLabelsManager extends LabelsManager {
 	

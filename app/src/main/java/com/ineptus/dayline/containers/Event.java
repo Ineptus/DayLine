@@ -1,11 +1,11 @@
 package com.ineptus.dayline.containers;
 
-import java.util.TimeZone;
-
 import android.database.Cursor;
 
 import com.ineptus.dayline.Contour;
 import com.ineptus.dayline.tools.CalendarDrainer;
+
+import java.util.TimeZone;
 
 
 public class Event {

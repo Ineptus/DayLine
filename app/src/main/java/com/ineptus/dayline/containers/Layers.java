@@ -1,11 +1,11 @@
 package com.ineptus.dayline.containers;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Shader;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Layers {
 	

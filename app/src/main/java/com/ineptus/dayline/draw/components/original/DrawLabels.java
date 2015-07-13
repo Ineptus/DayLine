@@ -1,21 +1,16 @@
 package com.ineptus.dayline.draw.components.original;
 
-import com.ineptus.dayline.R;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 
 import com.ineptus.dayline.Contour;
+import com.ineptus.dayline.R;
 import com.ineptus.dayline.containers.Event;
-import com.ineptus.dayline.containers.Label;
 import com.ineptus.dayline.containers.LineBox;
 import com.ineptus.dayline.containers.PeculiarLabel;
-import com.ineptus.dayline.containers.PeculiarLabelsManager;
 import com.ineptus.dayline.tools.Logger;
-import com.ineptus.dayline.tools.Prefs;
-
-import java.util.ArrayList;
 
 public class DrawLabels {
 
