@@ -19,7 +19,7 @@ public class DrawLabels {
 
     public static void peculiar(Contour c) {
 
-        final String freeTimeString = c.context.getResources().getString(R.string.of_free_time);
+        preparePeculiarLabels(c);
 
         //Define paint
         Paint paint = defineLabelsPaint(c);
@@ -34,7 +34,29 @@ public class DrawLabels {
         paint.getTextBounds("a", 0, 1, testRect);
         final float textPosMod = testRect.bottom-testRect.top / 2f;
 
+        //Draw labels
+        int posX = c.getLabelsPosX();
 
+        while (c.labels.hasNext()) {
+            PeculiarLabel label = c.labels.next();
+
+            if (label.text == null || label.text == "") {
+                continue;
+            }
+
+            paint.setColor(label.color);
+            paint.setShadowLayer(3, 1, 1, 0xaa000000);
+
+            String text = cutText(c, paint, label.text);
+
+            c.canvas.drawText(text, posX, c.marginTop + label.y + textPosMod, paint);
+            Logger.log("DrawLabels", 0, "Drawn " + text + " on " + label.y);
+        }
+    }
+
+    private static void preparePeculiarLabels(Contour c) {
+
+        final String freeTimeString = c.context.getResources().getString(R.string.of_free_time);
 
         ////Populate labels manager
         //Add events labels
@@ -66,24 +88,6 @@ public class DrawLabels {
         //And causes most of bugs
         c.labels.fit();
 
-        //Draw labels
-        int posX = c.getLabelsPosX();
-
-        while (c.labels.hasNext()) {
-            PeculiarLabel label = c.labels.next();
-
-            if (label.text == null || label.text == "") {
-                continue;
-            }
-
-            paint.setColor(label.color);
-            paint.setShadowLayer(3, 1, 1, 0xaa000000);
-
-            String text = cutText(c, paint, label.text);
-
-            c.canvas.drawText(text, posX, c.marginTop + label.y + textPosMod, paint);
-            Logger.log("DrawLabels", 0, "Drawn " + text + " on " + label.y);
-        }
     }
 
 
