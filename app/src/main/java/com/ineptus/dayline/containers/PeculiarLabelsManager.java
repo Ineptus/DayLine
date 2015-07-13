@@ -63,6 +63,11 @@ public class PeculiarLabelsManager {
             for(int i = 1; i<labels.size(); i++) {
                 putLabel(labels.get(i));
             }
+            PeculiarLabel temp = first;
+            while(temp != last){
+                Logger.log("CHECK Y", 1, "Y of " + temp.text + ": " + temp.y);
+                temp = temp.next;
+            }
         }
 
     }
@@ -78,6 +83,7 @@ public class PeculiarLabelsManager {
         //Check if label is doomed somehow
         //Safety check - for now at least
         if(label == null || label.steps > 10) {
+            Logger.log("PUT LABEL", 0, "---10+--STEPS----\n  CRITICAL ERROR  \n-----------------");
             return;
         }
         label.steps++;
@@ -91,7 +97,7 @@ public class PeculiarLabelsManager {
         //Check if label collides with others, move it accordingly
         if(collides(label)) {
             if(!solveCollision(label)) {
-                //Not solved so repeat
+                //Not solved so cancel this putting
                 return;
             }
         }
@@ -99,11 +105,32 @@ public class PeculiarLabelsManager {
 
         //Check if collides with bottom - try to move others up or remove the least important
         if(belowBottom(label)) {
-            solveBelowBottom(label);
+            if(!solveBelowBottom(label)){
+                return;
+            }
         }
 
-        //
-        add(label);
+
+        //CHECK IF SHIFT WAS BIG ENOUGH AND REMOVE A LOW PRIORITY LABEL IF POSSIBLE
+        int shiftCaliber = (label.y-label.getOriginY())/c.labelHeight;
+        if(shiftCaliber >= 1) {
+            if(label.getPriority() <= PeculiarLabel.PRIORITY_LOW) {
+                //Current label is low priority - cancel putting
+                return;
+            }
+            add(label);
+            removeUnnecessaryLabelInCluster(last);
+        } else {
+            add(label);
+        }
+
+        Logger.log("PUT LABEL", 0, "FINISHED");
+        PeculiarLabel temp = first;
+        do {
+            Logger.log("STATE REPORT", 5, temp.text + " Y: " + temp.y);
+            temp = temp.next;
+        } while (temp != null);
+
     }
 
     //Solve if ABOVE TOP
@@ -129,14 +156,14 @@ public class PeculiarLabelsManager {
     //Return true if solved
     private boolean solveCollision(PeculiarLabel label) {
 
-
+        Logger.log("SOLVE COLLISION", 1, label.text);
 
         //Check how many labels are involved and what is above the cluster
 
         //Check how many labels are in clustered and which is on the top
-        PeculiarLabel top = last;
-        int clusterSize = getCluster(top);
-        Logger.log("CLUSTER SIZE", 1, String.valueOf(clusterSize)+ " WITH TOP: " + top.text);
+        PeculiarLabel top = getTopInCluster(last);
+        int clusterSize = getClusterSize(last);
+        Logger.log("CLUSTER SIZE", 2, clusterSize+ " WITH TOP: " + top.text);
 
 
         //Calculate desired shift of label(s) above
@@ -152,11 +179,15 @@ public class PeculiarLabelsManager {
 
         //Check if top collides
         if(top.prev == null) {
+            Logger.log("SOLVE COLLISION", 2, "ALL IN SAME CLUSTER");
             int distanceToTop = top.y - c.labelsTop;
 
             //There is no place on top, move only current label
             if(distanceToTop == 0) {
                 label.y = last.y+c.labelHeight;
+                if(belowBottom(label)){
+                    return false;
+                }
                 return true;
             }
 
@@ -166,48 +197,84 @@ public class PeculiarLabelsManager {
             }
 
         } else {
-
+            Logger.log("SOLVE COLLISION", 2, "THERE IS CLUSTER ABOVE CLUSTER");
             //top.prev != null, so check if there is enough space to it
             int distanceToPrev = top.y - top.prev.y - c.labelHeight;
-            Logger.log("DISTANCE FROM " + top.text + " TO " + top.prev.text, 1, String.valueOf(distanceToPrev));
+            Logger.log("DISTANCE FROM " + top.text + " TO " + top.prev.text, 4, String.valueOf(distanceToPrev));
 
             //Not enough place - move as much as possible and repeat putting
             if(distanceToPrev < desiredShift) {
                 last.moveClusterUp(distanceToPrev);
+                Logger.log("SOLVE COLLISION", 3, "Moved cluster " + distanceToPrev);
                 label.y = label.y + distanceToPrev*clusterSize;
+                Logger.log("LABEL Y", 3, "Y of "+label.text+ ": "+label.y);
                 putLabel(label);
                 return false;
             }
         }
 
         last.moveClusterUp(desiredShift);
+        Logger.log("LAST Y", 1, "Y of " + last.text + ": " + last.y);
         label.y = last.y + c.labelHeight;
+        Logger.log("LABEL Y", 1, "Y of "+label.text+ ": "+label.y);
+
         return true;
     }
 
 
-    //Solve below bottom
-    private void solveBelowBottom(PeculiarLabel label) {
+    private void removeUnnecessaryLabelInCluster(PeculiarLabel label) {
+        if(label.getPriority() <= PeculiarLabel.PRIORITY_LOW) {
+            Logger.log("PUT LABEL", 1, "Removing unnecessary: " + label.text);
+            removeAndMoveAllBelowUp(label);
+            return;
+        }
+        if(label.prev != null) {
+            removeUnnecessaryLabelInCluster(label.prev);
+        }
+    }
 
+    private void removeAndMoveAllBelowUp(PeculiarLabel label) {
+        if(last == label) {
+            last = label.prev;
+            label.prev.next = null;
+            return;
+        }
+        if(first == label) {
+            first = label.next;
+        }
+        PeculiarLabel next = label.next;
+        label.remove();
+        if(next != null) {
+            next.moveAllBelowUp(c.labelHeight);
+        }
+
+    }
+
+
+    //Solve below bottom
+    private boolean solveBelowBottom(PeculiarLabel label) {
+        Logger.log("SOLVE BELOW BOTTOM", 1, label.text);
         int spaceOnTheBottom = c.labelsBottom - last.y;
 
         //Check if there is place on the bottom
         if(spaceOnTheBottom >= c.labelHeight) {
             //Just put on the bottom then
             label.y = c.labelsBottom;
-            return;
+            return true;
         }
 
         //Check if there is no space to move labels and cancel if so
         if(!findSpace(label, c.labelHeight-spaceOnTheBottom)) {
-            return;
+            return false;
         }
 
         //Set desired shift
         int desiredShift = c.labelHeight - spaceOnTheBottom;
-        last.moveUp(desiredShift);
+        last.moveAboveUp(desiredShift);
+        Logger.log("LAST Y", 2, "Y of " + last.text + ": " + last.y);
         label.y = c.labelsBottom;
-        return;
+        Logger.log("LABEL Y", 2, "Y of "+label.text+ ": "+label.y);
+        return true;
 
 
 
@@ -217,14 +284,23 @@ public class PeculiarLabelsManager {
     //////////////////////////
     //Recursive cluster info
 
-    public int getCluster(PeculiarLabel top) {
-        if(top.prev == null) {
+    private PeculiarLabel getTopInCluster(PeculiarLabel label) {
+        if(label.prev == null) {
+            return label;
+        } else if(label.prev.y < label.y-c.labelHeight) {
+            return label;
+        } else {
+            return getTopInCluster(label.prev);
+        }
+    }
+
+    private int getClusterSize(PeculiarLabel label){
+        if(label.prev == null) {
             return 1;
-        } else if(top.prev.y < top.y-c.labelHeight) {
+        } else if(label.prev.y < label.y-c.labelHeight) {
             return 1;
         } else {
-            top = top.prev;
-            return 1+getCluster(top);
+            return 1+getClusterSize(label.prev);
         }
     }
 

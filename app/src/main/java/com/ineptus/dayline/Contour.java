@@ -10,7 +10,6 @@ import com.ineptus.dayline.containers.Event;
 import com.ineptus.dayline.containers.EventsList;
 import com.ineptus.dayline.containers.LineBox;
 import com.ineptus.dayline.containers.PeculiarLabelsManager;
-import com.ineptus.dayline.containers.SimpleLabelsManager;
 import com.ineptus.dayline.tools.CalendarDrainer;
 import com.ineptus.dayline.tools.Prefs;
 
@@ -67,7 +66,7 @@ public class Contour {
     public final double pxPerMinute;
     public final double pxPerHour;
     public int textSize = 30;
-    public int textVertSpace = 5;
+    public int textVertPadding = 5;
     public int labelsMargin = 50;
 
 
@@ -118,13 +117,13 @@ public class Contour {
         axisBottom = height - marginBottom;
 
         textSize = dpToPx(16);
-        textVertSpace = dpToPx(3);
+        textVertPadding = dpToPx(3);
         labelsMargin = dpToPx(26);
-        labelHeight = textSize + textVertSpace;
+        labelHeight = textSize + textVertPadding;
         labelHalfHeight = labelHeight/2;
 
-        labelsTop = axisTop+labelHalfHeight;
-        labelsBottom = axisBottom-labelHalfHeight;
+        labelsTop = labelHalfHeight;
+        labelsBottom = height-labelHeight;
 
         //TIMES
         now.setToNow();

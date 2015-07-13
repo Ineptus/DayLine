@@ -111,12 +111,12 @@ public class SimpleLabelsManager extends LabelsManager {
 	}
 
 	private boolean collide(Label label, Label other) {
-        return !(other.y >= label.y + c.textSize + c.textVertSpace || other.y <= label.y - c.textSize - c.textVertSpace);
+        return !(other.y >= label.y + c.textSize + c.textVertPadding || other.y <= label.y - c.textSize - c.textVertPadding);
 	}
 	
 	private void solveCollision(Label label, Label other) {
 		
-		float overlap = (float) Math.ceil(c.textSize - Math.abs(label.y-other.y) + c.textVertSpace);
+		float overlap = (float) Math.ceil(c.textSize - Math.abs(label.y-other.y) + c.textVertPadding);
 		
 		//CANCEL IF PRIORITY == 0
 		if(label.priority == 0) {
@@ -221,7 +221,7 @@ public class SimpleLabelsManager extends LabelsManager {
 	@SuppressWarnings("unused")
 	private void solveCollisionOld(Label label, Label other) {
 		
-		float overlap = c.textSize - Math.abs(label.y-other.y) + c.textVertSpace;
+		float overlap = c.textSize - Math.abs(label.y-other.y) + c.textVertPadding;
 		//Log.d("solveCollision", "overlap is "+overlap );
 		
 		if(label.y < other.y) {

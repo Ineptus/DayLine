@@ -58,7 +58,7 @@ public class NewLabelsManager extends LabelsManager {
     }
 
     private boolean areColliding(Label label, Label other) {
-        return !(other.y >= label.y + c.textSize + c.textVertSpace || other.y <= label.y - c.textSize - c.textVertSpace);
+        return !(other.y >= label.y + c.textSize + c.textVertPadding || other.y <= label.y - c.textSize - c.textVertPadding);
     }
 
 

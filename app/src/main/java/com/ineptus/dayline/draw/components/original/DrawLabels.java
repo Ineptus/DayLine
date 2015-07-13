@@ -11,14 +11,13 @@ import com.ineptus.dayline.containers.Event;
 import com.ineptus.dayline.containers.Label;
 import com.ineptus.dayline.containers.LineBox;
 import com.ineptus.dayline.containers.PeculiarLabel;
+import com.ineptus.dayline.containers.PeculiarLabelsManager;
+import com.ineptus.dayline.tools.Logger;
 import com.ineptus.dayline.tools.Prefs;
 
 import java.util.ArrayList;
 
 public class DrawLabels {
-
-    private final static int PRIORITY_STANDARD = 1;
-    private final static int PRIORITY_LOW = 0;
 
     private final static int COLOR_FREETIME = 0xff88BB00;
 
@@ -35,11 +34,17 @@ public class DrawLabels {
             return;
         }
 
+        //Calculate text exact height and position modifier, so labels are placed by center (not baseline)
+        Rect testRect = new Rect();
+        paint.getTextBounds("a", 0, 1, testRect);
+        final float textPosMod = testRect.bottom-testRect.top / 2f;
+
+
 
         ////Populate labels manager
         //Add events labels
         for (Event event : c.events.getList()) {
-            c.labels.addFromEvent(event, PRIORITY_STANDARD);
+            c.labels.addFromEvent(event, PeculiarLabel.PRIORITY_NORMAL);
         }
 
         //Add free time labels
@@ -56,12 +61,14 @@ public class DrawLabels {
                     String text = h + min + freeTimeString;
 
                     //Add label
-                    c.labels.addCustom(text, COLOR_FREETIME, c.getBoxCenterY(box), PRIORITY_LOW);
+                    c.labels.addCustom(text, COLOR_FREETIME, c.getBoxCenterY(box), PeculiarLabel.PRIORITY_LOW);
                 }
             }
         }
 
         //Prepare labels for drawing
+        //Here LabelsManager really works
+        //And causes most of bugs
         c.labels.fit();
 
         //Draw labels
@@ -79,7 +86,8 @@ public class DrawLabels {
 
             String text = cutText(c, paint, label.text);
 
-            c.canvas.drawText(text, posX, c.marginTop + label.y + c.textSize * 0.33f, paint);
+            c.canvas.drawText(text, posX, c.marginTop + label.y + textPosMod, paint);
+            Logger.log("DrawLabels", 0, "Drawn " + text + " on " + label.y);
         }
     }
 

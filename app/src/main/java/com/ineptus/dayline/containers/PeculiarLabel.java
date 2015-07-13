@@ -5,6 +5,9 @@ import com.ineptus.dayline.Contour;
 
 public class PeculiarLabel {
 
+    public static final int PRIORITY_LOW = 1;
+    public static final int PRIORITY_NORMAL = 2;
+
     private Contour c;
 
     public String text;
@@ -66,14 +69,34 @@ public class PeculiarLabel {
         y = y-shift;
     }
 
-    public void moveUp(int shift){
+    public void moveAllBelowUp(int shift) {
+        if(next != null) {
+            next.moveAllBelowUp(shift);
+        }
+        y = y-shift;
+    }
+
+    public void moveAboveUp(int shift){
         if(shift <= 0 || prev == null) {
             return;
         }
 
+        prev.moveAboveUp(shift - (y - prev.y - c.labelHeight));
         y -= shift;
-        prev.moveUp(shift- (y-prev.y-c.labelHeight));
         return;
+    }
+
+
+    /////////////////
+    //Forget this label
+
+    public void remove() {
+        if(prev != null) {
+            prev.next = next;
+        }
+        if(next != null) {
+            next.prev = prev;
+        }
     }
 
 
