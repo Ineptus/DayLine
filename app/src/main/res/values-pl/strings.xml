@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DayLine</string>
+    <string name="add_widget">DODAJ WIDGET</string>
+    <string name="button_switch_text">Kliknięcie otwiera Kalendarz</string>
+    <string name="choose_calendars">Wybierz kalendarze do wyświetlenia:</string>
+    <string name="choose_calendars_button">Zmień wybór kalendarzy</string>
+    <string name="configuration_actionbar_title">DayLine - konfiguracja</string>
+    <string name="mirror">Oś po lewej stronie</string>
+    <string name="of_free_time">wolnego czasu!</string>
+    <string name="replace_message">WYMAGANE\nPONOWNE\nUMIESZCZENIE\nWIDŻETU :(</string>
+    <string name="set_range">Zakres osi w godzinach:</string>
+    <string name="show_allday">Pokazuj całodniowe wydarzenia</string>
+    <string name="switch_free_labels_text">Oznaczaj wolny czas</string>
+    <string name="use_12_hours">Zapis 12-godzinny</string>
+</resources>

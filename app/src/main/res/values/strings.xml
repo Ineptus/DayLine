@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DayLine</string>
+    <string name="app_name" translatable="false">DayLine</string>
     <string name="add_widget">ADD WIDGET</string>
     <string name="choose_calendars">Choose calendars to display:</string>
     <string name="set_range">Set timeline range in hours:</string>
