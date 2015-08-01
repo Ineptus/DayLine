@@ -19,6 +19,8 @@ public class Prefs {
     public final static String CHECKED_BOXES = "checked_boxes";
     public final static String MIRROR = "mirror";
     public final static String SHOW_ALLDAY = "show_allday";
+    public final static String GENERAL_SCALE = "general_scale";
+    public final static String FONT_SIZE_SCALE = "font_size_scale";
 
     private final static String PREFS_NAME_PREFIX = "com.ineptus.dayline.";
 

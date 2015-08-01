@@ -130,6 +130,55 @@
 
             </RelativeLayout>
 
+            <View style="@style/Divider" />
+
+            <RelativeLayout style="@style/SeekBarContainer">
+
+                <TextView
+                    android:id="@+id/seekbar_font_size_text"
+                    style="@style/SeekBarContainer.Text"
+                    android:text="@string/scale_font_size" />
+
+                <LinearLayout
+                    android:id="@+id/seekbar_font_size_value_conainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/seekbar_font_size_value"
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:inputType="number"
+                        android:gravity="right"
+                        />
+
+                    <TextView
+                        android:id="@+id/seekbar_font_size_percent"
+                        style="@style/MainText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="4dp"
+                        android:text="%"
+                        />
+
+
+                </LinearLayout>
+
+                <SeekBar
+                    android:id="@+id/seekbar_font_size"
+                    style="@style/SeekBarContainer.SeekBar"
+                    android:layout_below="@id/seekbar_font_size_text"
+                    android:layout_toLeftOf="@id/seekbar_font_size_value_conainer"
+                    android:progress="2"
+                    android:max="6"
+                    />
+
+            </RelativeLayout>
+
 
         </LinearLayout>
     </ScrollView>

@@ -13,4 +13,5 @@
     <string name="show_allday">Pokazuj całodniowe wydarzenia</string>
     <string name="switch_free_labels_text">Oznaczaj wolny czas</string>
     <string name="use_12_hours">Zapis 12-godzinny</string>
+    <string name="scale_font_size">Wielkość czcionek:</string>
 </resources>

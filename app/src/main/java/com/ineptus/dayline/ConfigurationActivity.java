@@ -9,12 +9,18 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.Toast;
 
+import com.ineptus.dayline.tools.Logger;
 import com.ineptus.dayline.tools.Prefs;
 
 import java.util.ArrayList;
@@ -41,6 +47,10 @@ public class ConfigurationActivity extends ActionBarActivity {
     private Switch use12hoursSwitch;
     private Switch mirror;
     private Switch showAllDay;
+    private SeekBar fontScaleSeekBar;
+    private EditText fontScaleEditText;
+
+    private int fontScale;
 
     private boolean calendarsChosen = false;
     private boolean prefsCleared = false;
@@ -81,6 +91,8 @@ public class ConfigurationActivity extends ActionBarActivity {
         use12hoursSwitch = (Switch) findViewById(R.id.switch_12_hours);
         mirror = (Switch) findViewById(R.id.switch_mirror);
         showAllDay = (Switch) findViewById(R.id.switch_show_allday);
+        fontScaleSeekBar = (SeekBar) findViewById(R.id.seekbar_font_size);
+        fontScaleEditText = (EditText) findViewById(R.id.seekbar_font_size_value);
 
         List<Integer> rangeList = new ArrayList<>();
         for (int i = MIN_RANGE; i <= MAX_RANGE; i++) {
@@ -94,6 +106,11 @@ public class ConfigurationActivity extends ActionBarActivity {
         rangeSpinner.setAdapter(spinAdapter);
         rangeSpinner.setSelection(12);
 
+        fontScale = getFontScaleValue(fontScaleSeekBar.getProgress());
+        fontScaleEditText.setText(String.valueOf(fontScale));
+        fontScaleSeekBar.setOnSeekBarChangeListener(getFontScaleSeekBarChangeListener());
+        //fontScaleEditText.addTextChangedListener(getFontScaleValueChangeListener());
+        //fontScaleEditText.setOnFocusChangeListener(getFontScaleEditTextChangeListener());
 
         // Find the widget id from the intent.
         Intent intent = getIntent();
@@ -182,6 +199,119 @@ public class ConfigurationActivity extends ActionBarActivity {
         RelativeLayout l = (RelativeLayout) view;
         View child = l.getChildAt(l.getChildCount()-1);
         child.performClick();
+    }
+
+
+    private SeekBar.OnSeekBarChangeListener getFontScaleSeekBarChangeListener() {
+        return new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                fontScaleEditText.setText(String.valueOf(getFontScaleValue(progress)));
+                fontScaleEditText.setSelection(fontScaleEditText.length());
+                fontScale = getFontScaleValue(progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        };
+    }
+
+    private View.OnFocusChangeListener getFontScaleEditTextChangeListener() {
+        return new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(true) {
+                    Editable text = fontScaleEditText.getEditableText();
+                    try {
+                        int userScale = Integer.decode(text.toString());
+                        int progress;
+                        if(userScale < 25) {
+                            showToast("minimum: 25%");
+                            fontScaleSeekBar.setProgress(0);
+                            text.replace(0, text.length(), "25");
+                            fontScale = 25;
+                        } else if(userScale > 400) {
+                            showToast("maximum: 400%");
+                            fontScaleSeekBar.setProgress(fontScaleSeekBar.getMax());
+                            text.replace(0, text.length(), "400");
+                            fontScale = 400;
+                        } else {
+                            progress = (userScale/25)-2;
+                            if(progress > fontScaleSeekBar.getMax()) {
+                                progress = fontScaleSeekBar.getMax();
+                            } else if (progress < 0) {
+                                progress = 0;
+                            }
+                            fontScaleSeekBar.setProgress(progress);
+                            fontScale = userScale;
+                        }
+
+                    } catch (NumberFormatException e) {}
+                }
+            }
+        };
+    }
+
+    private TextWatcher getFontScaleValueChangeListener() {
+        return new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Editable text = fontScaleEditText.getEditableText();
+                try {
+                    int userScale = Integer.decode(text.toString());
+                    int progress;
+                    if(userScale < 25) {
+                        showToast("minimum: 25%");
+                        fontScaleSeekBar.setProgress(0);
+                        s.replace(0, s.length(), "25");
+                        fontScale = 25;
+                    } else if(userScale > 400) {
+                        showToast("maximum: 400%");
+                        fontScaleSeekBar.setProgress(fontScaleSeekBar.getMax());
+                        s.replace(0, s.length(), "400");
+                        fontScale = 400;
+                    } else {
+                        progress = (userScale/25)-2;
+                        if(progress > fontScaleSeekBar.getMax()) {
+                            progress = fontScaleSeekBar.getMax();
+                        } else if (progress < 0) {
+                            progress = 0;
+                        }
+                        fontScaleSeekBar.setProgress(progress);
+                        fontScale = userScale;
+                    }
+
+                } catch (NumberFormatException e) {}
+            }
+        };
+
+    }
+
+    private void showToast(CharSequence message) {
+        Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+
+    private int getFontScaleValue(int progress) {
+        return progress*25+50;
     }
 
 

@@ -12,4 +12,5 @@
     <string name="replace_message">REPLACING\nWIDGET\nREQUIRED :(</string>
     <string name="of_free_time">of free time!</string>
     <string name="configuration_actionbar_title">DayLine - Configuration</string>
+    <string name="scale_font_size">Font size scale:</string>
 </resources>

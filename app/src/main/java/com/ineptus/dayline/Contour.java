@@ -34,6 +34,8 @@ public class Contour {
     public final boolean use12hours;
     public final boolean mirror;
     public final boolean labelFreeTime;
+    public final float generalScale;
+    public final float fontSizeScale;
 
 
     //AXIS
@@ -65,7 +67,7 @@ public class Contour {
     public final double pxPerSecond;
     public final double pxPerMinute;
     public final double pxPerHour;
-    public int textSize = 30;
+    public int textSize;
     public int textVertPadding = 5;
     public int labelsMargin = 50;
 
@@ -76,12 +78,11 @@ public class Contour {
     public final EventsList events;
     public final BoxedLine line;
     public BoxedLine sleep;
-    //public final SimpleLabelsManager labels;
     public final PeculiarLabelsManager labels;
 
     //BUILDING TEMPS
-    public EventsList antiStriped = new EventsList();
-    public EventsList usedEvents = new EventsList();
+    //public EventsList antiStriped = new EventsList();
+    //public EventsList usedEvents = new EventsList();
 
 
     public Contour(	Context context,
@@ -102,6 +103,9 @@ public class Contour {
         range = Prefs.load(this, Prefs.RANGE, 12);
         mirror = Prefs.load(this, Prefs.MIRROR, false);
         labelFreeTime = Prefs.load(this, Prefs.LABEL_FREE_TIME, true);
+        generalScale = Prefs.load(this, Prefs.GENERAL_SCALE, 100) / 100f;
+        fontSizeScale = Prefs.load(this, Prefs.FONT_SIZE_SCALE, 100) / 100f;
+
 
         //INIT CONTEXT DEPENDENT VALUES:
         if(mirror){
@@ -116,7 +120,7 @@ public class Contour {
         axisTop = marginTop;
         axisBottom = height - marginBottom;
 
-        textSize = dpToPx(16);
+        textSize = spToPx(16);
         textVertPadding = dpToPx(3);
         labelsMargin = dpToPx(26);
         labelHeight = textSize + textVertPadding;
@@ -138,7 +142,6 @@ public class Contour {
 
         //INIT CONTAINERS:
         events = new EventsList();
-        //labels = new SimpleLabelsManager(this);
         labels = new PeculiarLabelsManager(this);
 
         //DRAIN CALENDAR WHEN EVERYTHING INITIATED
@@ -199,11 +202,11 @@ public class Contour {
     //TOOLS:
 
     public int dpToPx(int dp) {
-        return Math.round(dp * context.getResources().getDisplayMetrics().density);
+        return Math.round(dp * context.getResources().getDisplayMetrics().density * generalScale);
     }
 
-    public int spToPx(int dp) {
-        return Math.round(dp * context.getResources().getDisplayMetrics().scaledDensity);
+    public int spToPx(int sp) {
+        return Math.round(sp * context.getResources().getDisplayMetrics().scaledDensity * generalScale * fontSizeScale);
     }
 
 
