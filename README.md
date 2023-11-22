@@ -1,6 +1,8 @@
 # DayLine
 
-was (is) my only finished and published Android app. It's not available on Google Play any more. Feel free to use this code in any way (as long as you don't hurt anyone). 
+> [!WARNING]
+> was (is) my only finished and published Android app. It's not available on Google Play any more. Feel free to use this code in any way (as long as you don't hurt anyone). 
+
 
 
 DayLine is an Android app that provides a homescreen widget to visualize Calendar events on a timeline.
